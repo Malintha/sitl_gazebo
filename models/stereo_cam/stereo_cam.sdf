@@ -1,10 +1,7 @@
 <?xml version='1.0'?>
-<sdf version='1.6' xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:arg name='camera_udp_port' default='5600' />
-  <!--<xacro:arg name='camera_pose' default='-0.158979 -0.04405 0.045074 0 -0 0'/>-->
-  <xacro:arg name='camera_pose' default='0.158979 -0.04405 0.045074 0 -0 0'/>
+<sdf version='1.6'>
     <model name='fpv_cam'>
-    <pose>$(arg camera_pose)</pose>
+    <pose>-0.158979 -0.04405 0.045074 0 -0 0</pose>
       <link name='link'>
         <inertial>
           <mass>0.015</mass>
@@ -91,7 +88,7 @@
              camera image size) -->
           <plugin name="GstCameraPlugin" filename="libgazebo_gst_camera_plugin.so">
             <robotNamespace></robotNamespace>
-            <udpPort>$(arg camera_udp_port)</udpPort>
+            <udpPort>5600</udpPort>
           </plugin>
         </sensor>
         <self_collide>0</self_collide>
