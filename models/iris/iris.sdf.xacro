@@ -2,7 +2,8 @@
   <xacro:arg name='mavlink_udp_port' default='14560' />
   <xacro:arg name='mavlink_tcp_port' default='4560' />
   <xacro:arg name='qgc_udp_port' default='4560' />
-  <xacro:arg name='enable_camera' default='true' />
+  <xacro:arg name='enable_camera' default='false' />
+  <xacro:arg name='enable_stereo_camera' default='true' /> 
   <xacro:arg name='camera_pose' default='0 0 0 0 0 0' />
   <xacro:arg name='camera_udp_port' default='5600' />
   <xacro:arg name='rotors_description_dir' default='.'/>
@@ -579,6 +580,7 @@
       <accelerometerBiasCorrelationTime>300.0</accelerometerBiasCorrelationTime>
       <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
     </plugin>
+  
   <xacro:if value="$(arg enable_camera)">
     <xacro:include filename="$(arg rotors_description_dir)/fpv_cam/fpv_cam.sdf.xacro">
     </xacro:include>
@@ -594,5 +596,22 @@
       </axis>
     </joint>
   </xacro:if>
+
+  <xacro:if value="$(arg enable_stereo_camera)">
+    <xacro:include filename="$(arg rotors_description_dir)/stereo_cam/stereo_cam.sdf.xacro">
+    </xacro:include>
+    <joint name="stereo_cam_joint" type="fixed">
+      <child>stereo_cam::link</child>
+      <parent>base_link</parent>
+      <axis>
+  <xyz>0 0 1</xyz>
+  <limit>
+    <upper>0</upper>
+    <lower>0</lower>
+  </limit>
+      </axis>
+    </joint>
+  </xacro:if>
+
   </model>
 </sdf>
